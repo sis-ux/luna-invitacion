@@ -1,14 +1,17 @@
 // ============================================
 // VARIABLES GLOBALES DE CONFIGURACIÓN
 // ============================================
+const backgroundMusic = new Audio('img/golden-huntrix.mp3'); 
+backgroundMusic.loop = true; 
+backgroundMusic.volume = 0.5;
 const CONFIG = {
-    // Enlaces configurables
-    whatsappNumber: '591XXXXXXXXX', // Cambia por el número real
-    whatsappMessage: '¡Hola! Confirmo mi asistencia al cumpleaños de Joel 🎉',
-    googleMapsUrl: 'https://maps.google.com/?q=-16.5,-68.15', // Cambia por las coordenadas reales
+
+    whatsappNumber: '591XXXXXXXXX', 
+    whatsappMessage: '¡Hola! Confirmo mi asistencia al cumpleaños 🎉',
+    googleMapsUrl: 'https://maps.google.com/?q=-16.5,-68.15', 
     
-    // Tiempos (en milisegundos)
-    loadingTime: 5000, // 15 segundos
+
+    loadingTime: 5000, 
     transitionTime: 800
 };
 
@@ -36,20 +39,19 @@ document.addEventListener('DOMContentLoaded', () => {
 function initApp() {
     // Crear partículas
     createParticles();
-    
+    document.addEventListener('click', function handler() {
+        backgroundMusic.play().catch(error => {
+            console.error(error);
+        });
+        document.removeEventListener('click', handler);
+        
+    });
     // Event Listeners
-
     btnMapa.addEventListener('click', openGoogleMaps);
     btnWhatsapp.addEventListener('click', openWhatsApp);
-
-    
-    // Habilitar botón después de la carga
-    setTimeout(() => {
-        btnVerInvitacion.style.opacity = '1';
-        btnVerInvitacion.style.pointerEvents = 'auto';
-    }, CONFIG.loadingTime);
+    setInterval(triggerConfetti, 3000);
 }
-setInterval(triggerConfetti, 3000);
+
 
 
 // ============================================
