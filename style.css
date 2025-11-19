@@ -1,0 +1,529 @@
+/* ============================================
+   VARIABLES GLOBALES DE COLORES
+   Cambia estos valores para diferentes temas
+   ============================================ */
+@import url('https://fonts.googleapis.com/css2?family=Sniglet:wght@400;800&display=swap');
+:root {
+    --color-primary: #FF4081;
+    --color-secondary: #00BCD4;
+    --color-accent1: #FF9800;
+    --color-accent2: #FFEB3B;
+    --color-accent3: #448AFF;
+    --color-accent4: #E040FB;
+    --color-glow: #FF4081;
+
+    --color-text: #FFFFFF;
+    --color-text-subtle: #FFC0CB;
+    
+    --color-bg: rgba(10, 10, 20, 0.95);
+    --color-bg-light: #536DFE;
+    --color-bg-hover: #7C4DFF;
+
+    --color-success: #8BC34A;
+    --color-warning: #FFC107;
+    --color-error: #F44336;
+}
+/* ============================================
+   RESET Y BASE
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family:  "Sniglet",'Arial', sans-serif;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('img/fondo.png');
+    background-size: cover;
+    background-position: center;
+    filter: blur(2px);
+    z-index: -1;
+}
+
+/* ============================================
+   PANTALLAS
+   ============================================ */
+.screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.screen.active {
+    display: flex;
+    opacity: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ============================================
+   HUD DINÁMICO
+   ============================================ */
+.hud-corner {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--color-glow);
+    z-index: 10;
+}
+
+.hud-corner.top-left {
+    top: 20px;
+    left: 20px;
+    border-right: none;
+    border-bottom: none;
+    animation: pulse-corner 2s infinite;
+}
+
+.hud-corner.top-right {
+    top: 20px;
+    right: 20px;
+    border-left: none;
+    border-bottom: none;
+    animation: pulse-corner 2s infinite 0.5s;
+}
+
+.hud-corner.bottom-left {
+    bottom: 20px;
+    left: 20px;
+    border-right: none;
+    border-top: none;
+    animation: pulse-corner 2s infinite 1s;
+}
+
+.hud-corner.bottom-right {
+    bottom: 20px;
+    right: 20px;
+    border-left: none;
+    border-top: none;
+    animation: pulse-corner 2s infinite 1.5s;
+}
+
+.hud-lines {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.hud-line {
+    position: absolute;
+    background: linear-gradient(90deg, transparent, var(--color-glow), transparent);
+    opacity: 0.3;
+}
+
+.line-1 {
+    width: 100%;
+    height: 2px;
+    top: 30%;
+    animation: scan-horizontal 3s infinite;
+}
+
+.line-2 {
+    width: 2px;
+    height: 100%;
+    left: 40%;
+    animation: scan-vertical 4s infinite;
+}
+
+.line-3 {
+    width: 100%;
+    height: 2px;
+    top: 70%;
+    animation: scan-horizontal 5s infinite reverse;
+}
+
+/* ============================================
+   PANTALLA 1: CARGA
+   ============================================ */
+#loadingScreen {
+    padding: 40px 20px;
+}
+
+.loading-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    flex: 1;
+}
+
+.logo-section {
+    text-align: center;
+}
+
+.logo-img {
+    max-width: 200px;
+    height: auto;
+    filter: drop-shadow(0 0 20px var(--color-glow));
+    animation: float 3s ease-in-out infinite;
+}
+
+.character-section {
+    text-align: center;
+}
+
+.character-img {
+    max-width: 350px;
+    height: auto;
+    filter: drop-shadow(0 0 30px var(--color-white));
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.info-section {
+    text-align: center;
+}
+
+.child-name {
+    font-size: 6rem;
+    font-weight: bold;
+    color: var(--color-bg-hover);
+    text-shadow: 0 0 20px var(--color-accent4),
+                 0 0 40px var(--color-bg-light);
+    margin-bottom: 5px;
+}
+
+.age {
+    font-size: 2.5rem;
+    color: var(--color-bg-light);
+    text-shadow: 0 0 15px var(--color-accent2);
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--color-accent3), var(--color-bg-hover));
+    color: var(--color-text);
+    border: 3px solid var(--color-text);
+    padding: 20px 50px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 0 30px var(--color-text);
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 50px var(--color-glow);
+}
+
+.btn-primary i {
+    animation: bounce-arrow 1s infinite;
+}
+
+.loading-bar {
+    width: 80%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid var(--color-glow);
+    margin-bottom: 20px;
+}
+
+.loading-progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent2), var(--color-accent3));
+    width: 0%;
+    animation: loading 15s linear forwards;
+    box-shadow: 0 0 20px var(--color-glow);
+}
+
+/* ============================================
+   PANTALLA 2: INVITACIÓN
+   ============================================ */
+#invitationScreen {
+    padding: 30px 20px;
+    justify-content: space-around;
+}
+
+.section-title {
+    text-align: center;
+    z-index: 10;
+}
+
+.title-main {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+
+}
+
+.title-name {
+    font-size: 7rem;
+    letter-spacing: 5px;
+     border-radius: 25px;
+    backdrop-filter: blur(10px);
+}
+
+.rainbow-text {
+    background: linear-gradient(90deg, 
+        var(--color-primary), 
+        var(--color-accent2), 
+        var(--color-accent3), 
+        var(--color-accent1),
+        var(--color-accent4));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow-slide 3s linear infinite;
+    background-size: 200% 100%;
+    text-shadow: 0 0 30px rgb(253, 253, 253);
+}
+
+.letter-color-1 { color: var(--color-primary); text-shadow: 0 0 20px var(--color-primary); }
+.letter-color-2 { color: var(--color-accent2); text-shadow: 0 0 20px var(--color-accent2); }
+.letter-color-3 { color: var(--color-accent3); text-shadow: 0 0 20px var(--color-accent3); }
+.letter-color-4 { color: var(--color-accent1); text-shadow: 0 0 20px var(--color-accent1); }
+
+.section-date {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    z-index: 10;
+}
+
+.date-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.date-item {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--color-accent1);
+    text-shadow: 0 0 25px var(--color-accent4);
+    padding: 10px 20px;
+}
+.date-number {
+    font-size: 5rem;
+    font-weight: bold;
+    color: var(--color-accent2);
+    text-shadow: 0 0 25px var(--color-accent4);
+}
+
+.character-img-2 {
+    max-width: 200px;
+    height: auto;
+    filter: drop-shadow(0 0 25px var(--color-accent4));
+    animation: float 3s ease-in-out infinite;
+}
+
+.section-location {
+    text-align: center;
+    z-index: 10;
+    width: 100%;
+}
+
+.location-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.location-icon {
+    font-size: 3rem;
+    color: white;
+    text-shadow: 0 0 20px var(--color-accent2);
+}
+
+.address {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--color-text);
+    text-shadow: 0 0 15px var(--color-error);
+}
+
+.buttons-group {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.btn-action {
+    background: linear-gradient(135deg, var(--color-accent1), var(--color-accent3));
+    color: var(--color-text);
+    border: 3px solid var(--color-text);
+    padding: 18px 35px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 0 25px var(--color-bg-light);
+    transition: all 0.3s;
+}
+
+.btn-action:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 40px var(--color-glow);
+}
+
+.btn-map {
+    background: linear-gradient(135deg, var(--color-accent4), var(--color-primary));
+}
+
+.btn-whatsapp {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+}
+
+.btn-close {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-accent4), var(--color-primary));
+    color: var(--color-text);
+    border: 3px solid var(--color-text);
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 0 25px var(--color-glow);
+    transition: all 0.3s;
+}
+
+.btn-close:hover {
+    transform: rotate(90deg) scale(1.1);
+    box-shadow: 0 0 40px var(--color-glow);
+}
+
+/* ============================================
+   PANTALLA 3: FINAL
+   ============================================ */
+#finalScreen {
+    justify-content: center;
+    align-items: center;
+}
+
+.final-content {
+    text-align: center;
+    z-index: 10;
+}
+
+.final-message {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    letter-spacing: 5px;
+}
+
+.final-name {
+    font-size: 7rem;
+    font-weight: bold;
+    letter-spacing: 15px;
+    margin-bottom: 40px;
+}
+
+.final-icon {
+    font-size: 5rem;
+    color: var(--color-accent2);
+    text-shadow: 0 0 40px var(--color-accent2);
+}
+
+/* ============================================
+   PARTÍCULAS
+   ============================================ */
+.particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ============================================
+   ANIMACIONES
+   ============================================ */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-30px); }
+}
+
+@keyframes bounce-arrow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+}
+
+@keyframes loading {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+
+@keyframes pulse-corner {
+    0%, 100% { border-color: var(--color-glow); opacity: 1; }
+    50% { border-color: var(--color-accent2); opacity: 0.5; }
+}
+
+@keyframes scan-horizontal {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+@keyframes scan-vertical {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+}
+
+@keyframes rainbow-slide {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+@keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+.pulse { animation: pulse 2s infinite; }
+.blink { animation: blink 1.5s infinite; }
+.glitch { animation: glitch 0.3s infinite; }
