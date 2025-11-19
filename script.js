@@ -38,10 +38,10 @@ function initApp() {
     createParticles();
     
     // Event Listeners
-    btnVerInvitacion.addEventListener('click', showInvitation);
+
     btnMapa.addEventListener('click', openGoogleMaps);
     btnWhatsapp.addEventListener('click', openWhatsApp);
-    btnClose.addEventListener('click', showFinalScreen);
+
     
     // Habilitar botón después de la carga
     setTimeout(() => {
@@ -49,37 +49,8 @@ function initApp() {
         btnVerInvitacion.style.pointerEvents = 'auto';
     }, CONFIG.loadingTime);
 }
+setInterval(triggerConfetti, 3000);
 
-// ============================================
-// NAVEGACIÓN ENTRE PANTALLAS
-// ============================================
-function showInvitation() {
-    transitionScreen(loadingScreen, invitationScreen);
-    playSound('transition');
-}
-
-function showFinalScreen() {
-    transitionScreen(invitationScreen, finalScreen);
-    triggerConfetti();
-    playSound('celebration');
-}
-
-function transitionScreen(fromScreen, toScreen) {
-    // Ocultar pantalla actual
-    fromScreen.style.opacity = '0';
-    
-    setTimeout(() => {
-        fromScreen.classList.remove('active');
-        fromScreen.style.display = 'none';
-        
-        // Mostrar nueva pantalla
-        toScreen.style.display = 'flex';
-        setTimeout(() => {
-            toScreen.classList.add('active');
-            toScreen.style.opacity = '1';
-        }, 50);
-    }, CONFIG.transitionTime);
-}
 
 // ============================================
 // FUNCIONES DE BOTONES
@@ -94,6 +65,14 @@ function openWhatsApp() {
     const message = encodeURIComponent(CONFIG.whatsappMessage);
     const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${message}`;
     window.open(url, '_blank');
+}
+function scrollToNext(btn) {
+    const currentSection = btn.previousElementSibling;
+    const nextSection = currentSection.nextElementSibling;
+
+    if (nextSection) {
+        nextSection.scrollIntoView({ behavior: 'smooth' });
+    }
 }
 
 // ============================================

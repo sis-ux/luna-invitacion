@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,51 +8,53 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <!-- PANTALLA 1: CARGA -->
-    <div id="loadingScreen" class="screen active">
+    <section id="loadingScreen" class="screen section">
         <div class="hud-corner top-left"></div>
         <div class="hud-corner top-right"></div>
         <div class="hud-corner bottom-left"></div>
         <div class="hud-corner bottom-right"></div>
-        
+
         <div class="loading-content">
             <div class="logo-section">
                 <img src="img/logo.png" alt="Logo" class="logo-img">
             </div>
-            
+
             <div class="character-section">
                 <img src="img/grupo1.png" alt="Personaje" class="character-img">
             </div>
-            
+
             <div class="info-section">
                 <h1 class="child-name glitch" data-text="Jose">LUNA</h1>
                 <p class="age pulse">5 años</p>
-                <button id="btnVerInvitacion" class="btn-primary">
-                    <span>Ver Invitación</span>
-                    <i class="fas fa-chevron-down"></i>
-                </button>
+
             </div>
         </div>
-        
-    </div>
+
+    </section>
+    <button class="btn-scroll" onclick="scrollToNext(this)">
+        <i class="fas fa-chevron-down"></i>
+    </button>
 
     <!-- PANTALLA 2: INVITACIÓN -->
-    <div id="invitationScreen" class="screen">
+    <section id="invitationScreen" class="screen section">
         <div class="hud-lines">
             <div class="hud-line line-1"></div>
             <div class="hud-line line-2"></div>
             <div class="hud-line line-3"></div>
         </div>
-        
+
         <!-- Sección 1: Título -->
         <section class="section-title">
             <h2 class="title-main rainbow-text">CUMPLEAÑOS</h2>
             <h2 class="title-name">
-                <span class="letter-color-1">L</span><span class="letter-color-2">U</span><span class="letter-color-3">N</span><span class="letter-color-4">A</span>
+                <span class="letter-color-1">L</span><span class="letter-color-2">U</span><span
+                    class="letter-color-3">N</span><span class="letter-color-4">A</span>
             </h2>
         </section>
-        
+
         <!-- Sección 2: Fecha y Personaje -->
         <section class="section-date">
             <div class="date-left">
@@ -63,14 +66,14 @@
                 <img src="img/rumi.png" alt="Personaje" class="character-img-2">
             </div>
         </section>
-        
+
         <!-- Sección 3: Lugar y Botones -->
         <section class="section-location">
             <div class="location-info">
                 <i class="fas fa-map-marker-alt location-icon pulse"></i>
                 <p class="address">Av. Mariscal Cáceres #31</p>
             </div>
-            
+
             <div class="buttons-group">
                 <button id="btnMapa" class="btn-action btn-map">
                     <i class="fas fa-map"></i>
@@ -81,33 +84,32 @@
                     <span>Confirmar</span>
                 </button>
             </div>
-            
-            <button id="btnClose" class="btn-close">
-                <i class="fas fa-times"></i>
-            </button>
+
         </section>
-        
+
         <div class="particles" id="particles"></div>
-    </div>
+    </section>
 
     <!-- PANTALLA 3: MENSAJE FINAL -->
-    <div id="finalScreen" class="screen">
+    <section id="finalScreen" class="screen section">
         <div class="hud-corner top-left"></div>
         <div class="hud-corner top-right"></div>
         <div class="hud-corner bottom-left"></div>
         <div class="hud-corner bottom-right"></div>
-        
+
         <div class="final-content">
             <h2 class="final-message rainbow-text">QUEDAN INVITADOS</h2>
             <h1 class="final-name">
-                <span class="letter-color-1">L</span><span class="letter-color-2">U</span><span class="letter-color-3">N</span><span class="letter-color-4">A</span>
+                <span class="letter-color-1">L</span><span class="letter-color-2">U</span><span
+                    class="letter-color-3">N</span><span class="letter-color-4">A</span>
             </h1>
             <div class="final-icon pulse">
                 <i class="fas fa-gift"></i>
             </div>
         </div>
-    </div>
+    </section>
 
     <script src="script.js"></script>
 </body>
+
 </html>
